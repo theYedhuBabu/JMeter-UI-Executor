@@ -1,0 +1,27 @@
+nohup: ignoring input
+{"time":"2026-03-04T00:38:50.246533135+05:30","level":"INFO","msg":"Starting JMeter Central Hub..."}
+{"time":"2026-03-04T00:38:50.246846568+05:30","level":"INFO","msg":"Database connection established","path":"./jmeter_hub.db"}
+{"time":"2026-03-04T00:38:50.246872383+05:30","level":"INFO","msg":"Database tables initialized successfully"}
+[GIN-debug] [WARNING] Creating an Engine instance with the Logger and Recovery middleware already attached.
+
+[GIN-debug] [WARNING] Running in "debug" mode. Switch to "release" mode in production.
+ - using env:	export GIN_MODE=release
+ - using code:	gin.SetMode(gin.ReleaseMode)
+
+[GIN-debug] POST   /api/upload/script        --> jmeter-hub/api.UploadScriptHandler (3 handlers)
+[GIN-debug] POST   /api/results/upload/:runId --> jmeter-hub/api.ResultReceiverHandler (3 handlers)
+[GIN-debug] GET    /api/history              --> jmeter-hub/api.GetHistoryHandler (3 handlers)
+[GIN-debug] GET    /api/agents               --> jmeter-hub/api.SetupRouter.func1 (3 handlers)
+[GIN-debug] GET    /reports/*filepath        --> github.com/gin-gonic/gin.(*RouterGroup).createStaticHandler.func1 (3 handlers)
+[GIN-debug] HEAD   /reports/*filepath        --> github.com/gin-gonic/gin.(*RouterGroup).createStaticHandler.func1 (3 handlers)
+[GIN-debug] GET    /ws                       --> jmeter-hub/api.SetupRouter.func2 (3 handlers)
+[GIN-debug] GET    /assets/*filepath         --> github.com/gin-gonic/gin.(*RouterGroup).createStaticHandler.func1 (3 handlers)
+[GIN-debug] HEAD   /assets/*filepath         --> github.com/gin-gonic/gin.(*RouterGroup).createStaticHandler.func1 (3 handlers)
+{"time":"2026-03-04T00:38:50.246928918+05:30","level":"INFO","msg":"Hub listening","port":":8080"}
+[GIN-debug] [WARNING] You trusted all proxies, this is NOT safe. We recommend you to set a value.
+Please check https://github.com/gin-gonic/gin/blob/master/docs/doc.md#dont-trust-all-proxies for details.
+[GIN-debug] Listening and serving HTTP on :8080
+[GIN] 2026/03/04 - 00:38:51 | 200 | 64.774µs |       127.0.0.1 | GET      "/ws?agentId=QB-IPL-2988"
+{"time":"2026-03-04T00:38:51.783659167+05:30","level":"INFO","msg":"Agent registered successfully in Hub","agent_id":"QB-IPL-2988"}
+[GIN] 2026/03/04 - 00:39:00 | 200 |  39.58µs |             ::1 | GET      "/"
+signal: terminated

@@ -1,0 +1,87 @@
+2026-03-04 01:32:33,715 INFO o.a.j.u.JMeterUtils: Setting Locale to en_EN
+2026-03-04 01:32:33,727 INFO o.a.j.JMeter: Loading user properties from: /home/yedhubabu/SelfProjects/T/apache-jmeter-5.6.3/bin/user.properties
+2026-03-04 01:32:33,727 INFO o.a.j.JMeter: Loading system properties from: /home/yedhubabu/SelfProjects/T/apache-jmeter-5.6.3/bin/system.properties
+2026-03-04 01:32:33,730 INFO o.a.j.JMeter: Copyright (c) 1998-2024 The Apache Software Foundation
+2026-03-04 01:32:33,730 INFO o.a.j.JMeter: Version 5.6.3
+2026-03-04 01:32:33,730 INFO o.a.j.JMeter: java.version=21.0.10
+2026-03-04 01:32:33,730 INFO o.a.j.JMeter: java.vm.name=OpenJDK 64-Bit Server VM
+2026-03-04 01:32:33,730 INFO o.a.j.JMeter: os.name=Linux
+2026-03-04 01:32:33,730 INFO o.a.j.JMeter: os.arch=amd64
+2026-03-04 01:32:33,730 INFO o.a.j.JMeter: os.version=6.8.0-47-generic
+2026-03-04 01:32:33,730 INFO o.a.j.JMeter: file.encoding=UTF-8
+2026-03-04 01:32:33,730 INFO o.a.j.JMeter: java.awt.headless=true
+2026-03-04 01:32:33,730 INFO o.a.j.JMeter: Max memory     =1073741824
+2026-03-04 01:32:33,730 INFO o.a.j.JMeter: Available Processors =12
+2026-03-04 01:32:33,735 INFO o.a.j.JMeter: Default Locale=English (EN)
+2026-03-04 01:32:33,735 INFO o.a.j.JMeter: JMeter  Locale=English (EN)
+2026-03-04 01:32:33,736 INFO o.a.j.JMeter: JMeterHome=/home/yedhubabu/SelfProjects/T/apache-jmeter-5.6.3
+2026-03-04 01:32:33,736 INFO o.a.j.JMeter: user.dir  =/home/yedhubabu/SelfProjects/T/jmeter-agent/runs/run-1772568153
+2026-03-04 01:32:33,736 INFO o.a.j.JMeter: PWD       =/home/yedhubabu/SelfProjects/T/jmeter-agent/runs/run-1772568153
+2026-03-04 01:32:33,736 INFO o.a.j.JMeter: IP: 127.0.1.1 Name: QB-IPL-2988 FullName: QB-IPL-2988
+2026-03-04 01:32:33,745 INFO o.a.j.s.FileServer: Default base='/home/yedhubabu/SelfProjects/T/jmeter-agent/runs/run-1772568153'
+2026-03-04 01:32:33,746 INFO o.a.j.s.FileServer: Set new base='/home/yedhubabu/SelfProjects/T/jmeter-agent/runs/run-1772568153'
+2026-03-04 01:32:33,878 INFO o.a.j.s.SaveService: Testplan (JMX) version: 2.2. Testlog (JTL) version: 2.2
+2026-03-04 01:32:33,898 INFO o.a.j.s.SaveService: Using SaveService properties version 5.0
+2026-03-04 01:32:33,900 INFO o.a.j.s.SaveService: Using SaveService properties file encoding UTF-8
+2026-03-04 01:32:33,902 INFO o.a.j.s.SaveService: Loading file: script.jmx
+2026-03-04 01:32:33,910 ERROR o.a.j.JMeter: Error in NonGUIDriver
+com.thoughtworks.xstream.io.StreamException: 
+	at com.thoughtworks.xstream.io.xml.XppReader.pullNextEvent(XppReader.java:124) ~[xstream-1.4.20.jar:1.4.20]
+	at com.thoughtworks.xstream.io.xml.AbstractPullReader.readRealEvent(AbstractPullReader.java:148) ~[xstream-1.4.20.jar:1.4.20]
+	at com.thoughtworks.xstream.io.xml.AbstractPullReader.readEvent(AbstractPullReader.java:141) ~[xstream-1.4.20.jar:1.4.20]
+	at com.thoughtworks.xstream.io.xml.AbstractPullReader.move(AbstractPullReader.java:118) ~[xstream-1.4.20.jar:1.4.20]
+	at com.thoughtworks.xstream.io.xml.AbstractPullReader.moveDown(AbstractPullReader.java:103) ~[xstream-1.4.20.jar:1.4.20]
+	at com.thoughtworks.xstream.io.xml.XppReader.<init>(XppReader.java:63) ~[xstream-1.4.20.jar:1.4.20]
+	at com.thoughtworks.xstream.io.xml.AbstractXppDriver.createReader(AbstractXppDriver.java:54) ~[xstream-1.4.20.jar:1.4.20]
+	at com.thoughtworks.xstream.XStream.fromXML(XStream.java:1321) ~[xstream-1.4.20.jar:1.4.20]
+	at org.apache.jmeter.save.SaveService.readTree(SaveService.java:446) ~[ApacheJMeter_core.jar:5.6.3]
+	at org.apache.jmeter.save.SaveService.loadTree(SaveService.java:429) ~[ApacheJMeter_core.jar:5.6.3]
+	at org.apache.jmeter.JMeter.runNonGui(JMeter.java:954) [ApacheJMeter_core.jar:5.6.3]
+	at org.apache.jmeter.JMeter.startNonGui(JMeter.java:940) [ApacheJMeter_core.jar:5.6.3]
+	at org.apache.jmeter.JMeter.start(JMeter.java:508) [ApacheJMeter_core.jar:5.6.3]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[?:?]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[?:?]
+	at org.apache.jmeter.NewDriver.main(NewDriver.java:259) [ApacheJMeter.jar:5.6.3]
+Caused by: org.xmlpull.v1.XmlPullParserException: unexpected markup <!d (position: START_DOCUMENT seen <!d... @1:4) 
+	at io.github.xstream.mxparser.MXParser.parseProlog(MXParser.java:1480) ~[mxparser-1.2.2.jar:1.2.2]
+	at io.github.xstream.mxparser.MXParser.nextImpl(MXParser.java:1406) ~[mxparser-1.2.2.jar:1.2.2]
+	at io.github.xstream.mxparser.MXParser.next(MXParser.java:1104) ~[mxparser-1.2.2.jar:1.2.2]
+	at com.thoughtworks.xstream.io.xml.XppReader.pullNextEvent(XppReader.java:109) ~[xstream-1.4.20.jar:1.4.20]
+	... 15 more
+2026-03-04 01:32:33,915 ERROR o.a.j.JMeter: An error occurred: 
+org.apache.jmeter.report.config.ConfigurationException: Error in NonGUIDriver 
+	at org.apache.jmeter.JMeter.runNonGui(JMeter.java:1049) ~[ApacheJMeter_core.jar:5.6.3]
+	at org.apache.jmeter.JMeter.startNonGui(JMeter.java:940) ~[ApacheJMeter_core.jar:5.6.3]
+	at org.apache.jmeter.JMeter.start(JMeter.java:508) [ApacheJMeter_core.jar:5.6.3]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[?:?]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[?:?]
+	at org.apache.jmeter.NewDriver.main(NewDriver.java:259) [ApacheJMeter.jar:5.6.3]
+Caused by: com.thoughtworks.xstream.io.StreamException: 
+	at com.thoughtworks.xstream.io.xml.XppReader.pullNextEvent(XppReader.java:124) ~[xstream-1.4.20.jar:1.4.20]
+	at com.thoughtworks.xstream.io.xml.AbstractPullReader.readRealEvent(AbstractPullReader.java:148) ~[xstream-1.4.20.jar:1.4.20]
+	at com.thoughtworks.xstream.io.xml.AbstractPullReader.readEvent(AbstractPullReader.java:141) ~[xstream-1.4.20.jar:1.4.20]
+	at com.thoughtworks.xstream.io.xml.AbstractPullReader.move(AbstractPullReader.java:118) ~[xstream-1.4.20.jar:1.4.20]
+	at com.thoughtworks.xstream.io.xml.AbstractPullReader.moveDown(AbstractPullReader.java:103) ~[xstream-1.4.20.jar:1.4.20]
+	at com.thoughtworks.xstream.io.xml.XppReader.<init>(XppReader.java:63) ~[xstream-1.4.20.jar:1.4.20]
+	at com.thoughtworks.xstream.io.xml.AbstractXppDriver.createReader(AbstractXppDriver.java:54) ~[xstream-1.4.20.jar:1.4.20]
+	at com.thoughtworks.xstream.XStream.fromXML(XStream.java:1321) ~[xstream-1.4.20.jar:1.4.20]
+	at org.apache.jmeter.save.SaveService.readTree(SaveService.java:446) ~[ApacheJMeter_core.jar:5.6.3]
+	at org.apache.jmeter.save.SaveService.loadTree(SaveService.java:429) ~[ApacheJMeter_core.jar:5.6.3]
+	at org.apache.jmeter.JMeter.runNonGui(JMeter.java:954) ~[ApacheJMeter_core.jar:5.6.3]
+	... 5 more
+Caused by: org.xmlpull.v1.XmlPullParserException: unexpected markup <!d (position: START_DOCUMENT seen <!d... @1:4) 
+	at io.github.xstream.mxparser.MXParser.parseProlog(MXParser.java:1480) ~[mxparser-1.2.2.jar:1.2.2]
+	at io.github.xstream.mxparser.MXParser.nextImpl(MXParser.java:1406) ~[mxparser-1.2.2.jar:1.2.2]
+	at io.github.xstream.mxparser.MXParser.next(MXParser.java:1104) ~[mxparser-1.2.2.jar:1.2.2]
+	at com.thoughtworks.xstream.io.xml.XppReader.pullNextEvent(XppReader.java:109) ~[xstream-1.4.20.jar:1.4.20]
+	at com.thoughtworks.xstream.io.xml.AbstractPullReader.readRealEvent(AbstractPullReader.java:148) ~[xstream-1.4.20.jar:1.4.20]
+	at com.thoughtworks.xstream.io.xml.AbstractPullReader.readEvent(AbstractPullReader.java:141) ~[xstream-1.4.20.jar:1.4.20]
+	at com.thoughtworks.xstream.io.xml.AbstractPullReader.move(AbstractPullReader.java:118) ~[xstream-1.4.20.jar:1.4.20]
+	at com.thoughtworks.xstream.io.xml.AbstractPullReader.moveDown(AbstractPullReader.java:103) ~[xstream-1.4.20.jar:1.4.20]
+	at com.thoughtworks.xstream.io.xml.XppReader.<init>(XppReader.java:63) ~[xstream-1.4.20.jar:1.4.20]
+	at com.thoughtworks.xstream.io.xml.AbstractXppDriver.createReader(AbstractXppDriver.java:54) ~[xstream-1.4.20.jar:1.4.20]
+	at com.thoughtworks.xstream.XStream.fromXML(XStream.java:1321) ~[xstream-1.4.20.jar:1.4.20]
+	at org.apache.jmeter.save.SaveService.readTree(SaveService.java:446) ~[ApacheJMeter_core.jar:5.6.3]
+	at org.apache.jmeter.save.SaveService.loadTree(SaveService.java:429) ~[ApacheJMeter_core.jar:5.6.3]
+	at org.apache.jmeter.JMeter.runNonGui(JMeter.java:954) ~[ApacheJMeter_core.jar:5.6.3]
+	... 5 more
