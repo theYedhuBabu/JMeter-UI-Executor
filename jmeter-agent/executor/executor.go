@@ -12,6 +12,7 @@ import (
 	"strings"
 	"sync"
 	"syscall"
+	"time"
 )
 
 // LogCallback is a function signature for handling real-time log lines
@@ -26,7 +27,7 @@ var (
 )
 
 // Execute runs the JMeter CLI asynchronously
-func Execute(runID string, jmxPath string, jmeterParams map[string]string, uploadURL string, onLog LogCallback, onStatus StatusCallback) error {
+func Execute(runID string, agentID string, jmxPath string, runMode string, jmeterParams map[string]string, uploadURL string, onLog LogCallback, onStatus StatusCallback) error {
 	slog.Info("Preparing to execute JMeter", "run_id", runID, "jmx", jmxPath)
 
 	runDir := filepath.Dir(jmxPath)
@@ -59,6 +60,12 @@ func Execute(runID string, jmxPath string, jmeterParams map[string]string, uploa
 		return err
 	}
 
+	// Configure InfluxDB Backend Listener dynamically
+	influxURL := uploadURL // We will override this carefully below
+	if strings.Contains(uploadURL, "/api/results/upload") {
+		influxURL = strings.Replace(uploadURL, "/api/results/upload", "/api/v2/write", 1) + "?db=jmeter"
+	}
+
 	// Construct base command
 	args := []string{
 		"-n", // non-GUI mode
@@ -71,9 +78,50 @@ func Execute(runID string, jmxPath string, jmeterParams map[string]string, uploa
 		args = append(args, fmt.Sprintf("-J%s=%s", key, val))
 	}
 
+	// Make the agentID available as a JMeter property
+	args = append(args, fmt.Sprintf("-JagentId=%s", agentID))
+
+	// Inject the influxDB parameters automatically if not provided
+	if _, ok := jmeterParams["influxdbUrl"]; !ok {
+		args = append(args,
+			fmt.Sprintf("-JinfluxdbUrl=%s", influxURL),
+			"-JinfluxdbMetricsSender=org.apache.jmeter.visualizers.backend.influxdb.HttpMetricsSender",
+			fmt.Sprintf("-Japplication=jmeter_%s", agentID),
+			"-JsummaryOnly=false",
+		)
+	}
+
+	// Prioritize `jmeter` from system PATH if available
 	jmeterExec := "jmeter"
-	if _, err := os.Stat("/home/yedhubabu/SelfProjects/T/apache-jmeter-5.6.3/bin/jmeter"); err == nil {
-		jmeterExec = "/home/yedhubabu/SelfProjects/T/apache-jmeter-5.6.3/bin/jmeter"
+	if _, err := exec.LookPath(jmeterExec); err != nil {
+		// Fallback to JMETER_HOME environment variable if not in system PATH
+		jmeterHome := os.Getenv("JMETER_HOME")
+		if jmeterHome != "" {
+			localPath := filepath.Join(jmeterHome, "bin", "jmeter")
+			if _, statErr := os.Stat(localPath); statErr == nil {
+				jmeterExec = localPath
+			} else {
+				errMsg := fmt.Errorf("JMeter not found in PATH and JMETER_HOME/bin/jmeter is invalid: %v", statErr)
+				slog.Error("Environment error", "run_id", runID, "error", errMsg)
+				if onLog != nil {
+					onLog(runID, fmt.Sprintf("FATAL: %v", errMsg))
+				}
+				if onStatus != nil {
+					onStatus(runID, errMsg)
+				}
+				return errMsg
+			}
+		} else {
+			errMsg := fmt.Errorf("JMeter not found in PATH and JMETER_HOME environment variable is not set")
+			slog.Error("Environment error", "run_id", runID, "error", errMsg)
+			if onLog != nil {
+				onLog(runID, fmt.Sprintf("FATAL: %v", errMsg))
+			}
+			if onStatus != nil {
+				onStatus(runID, errMsg)
+			}
+			return errMsg
+		}
 	}
 
 	cmd := exec.Command(jmeterExec, args...)
@@ -95,7 +143,10 @@ func Execute(runID string, jmxPath string, jmeterParams map[string]string, uploa
 	}
 
 	if err := cmd.Start(); err != nil {
-		slog.Error("Failed to start JMeter process", "run_id", runID, "error", err)
+		slog.Error("Failed to start JMeter process", "run_id", runID, "error", err, "executable_used", jmeterExec)
+		if onLog != nil {
+			onLog(runID, fmt.Sprintf("FATAL: Failed to start JMeter process. Executable `%s` could not be run: %v", jmeterExec, err))
+		}
 		return err
 	}
 
@@ -105,6 +156,9 @@ func Execute(runID string, jmxPath string, jmeterParams map[string]string, uploa
 	runningCmdsMu.Unlock()
 
 	slog.Info("JMeter process started successfully", "run_id", runID, "pid", cmd.Process.Pid)
+	if onLog != nil {
+		onLog(runID, fmt.Sprintf("INFO: Successfully launched JMeter process (PID: %d)", cmd.Process.Pid))
+	}
 
 	go func() {
 		var wgLog sync.WaitGroup
@@ -138,7 +192,7 @@ func Execute(runID string, jmxPath string, jmeterParams map[string]string, uploa
 		}
 
 		// Sequential cleanup logic
-		zipPath, errZip := cleanup.ArchiveResults(runID)
+		zipPath, errZip := cleanup.ArchiveResults(runID, agentID)
 		if errZip == nil {
 			if uploadURL != "" {
 				if errUp := cleanup.UploadResults(zipPath, uploadURL); errUp != nil {
@@ -151,7 +205,7 @@ func Execute(runID string, jmxPath string, jmeterParams map[string]string, uploa
 			slog.Error("Failed to archive results", "run_id", runID, "error", errZip)
 		}
 
-		if errWipe := cleanup.WipeWorkspace(runID); errWipe != nil {
+		if errWipe := cleanup.WipeWorkspace(runID, agentID); errWipe != nil {
 			slog.Error("Failed to wipe workspace", "run_id", runID, "error", errWipe)
 		}
 
@@ -179,7 +233,8 @@ func streamLogs(runID string, pipe io.Reader, onLog LogCallback) {
 	}
 }
 
-// StopTest sends a SIGTERM to the process group associated with the runID
+// StopTest sends a SIGTERM to the process group associated with the runID,
+// giving JMeter a chance to flush results. Falls back to SIGKILL after 10 seconds.
 func StopTest(runID string) error {
 	runningCmdsMu.Lock()
 	cmd, exists := runningCmds[runID]
@@ -197,11 +252,27 @@ func StopTest(runID string) error {
 	}
 
 	slog.Info("Sending SIGTERM to process group", "run_id", runID, "pgid", pgid)
-
-	// Send SIGTERM to the process group (-pgid)
 	if err := syscall.Kill(-pgid, syscall.SIGTERM); err != nil {
-		slog.Error("Failed to kill process group", "run_id", runID, "pgid", pgid, "error", err)
+		slog.Error("Failed to send SIGTERM to process group", "run_id", runID, "pgid", pgid, "error", err)
 		return err
+	}
+
+	// Give JMeter up to 10 seconds to flush results before forcefully killing it
+	done := make(chan struct{})
+	go func() {
+		cmd.Wait() // nolint: this is a best-effort wait
+		close(done)
+	}()
+
+	select {
+	case <-done:
+		slog.Info("Process exited cleanly after SIGTERM", "run_id", runID)
+	case <-time.After(10 * time.Second):
+		slog.Warn("Process did not exit after SIGTERM, sending SIGKILL", "run_id", runID, "pgid", pgid)
+		if err := syscall.Kill(-pgid, syscall.SIGKILL); err != nil {
+			slog.Error("Failed to send SIGKILL to process group", "run_id", runID, "pgid", pgid, "error", err)
+			return err
+		}
 	}
 
 	return nil

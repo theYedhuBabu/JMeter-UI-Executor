@@ -21,16 +21,14 @@ const (
 	StatusCompleted AgentStatus = "completed"
 )
 
-// DownloadURLs contains URLs to download JMX and plugin files
-type DownloadURLs struct {
-	JMX     string `json:"jmx"`
-	Plugins string `json:"plugins,omitempty"`
-}
+// DownloadURLs contains URLs to download JMX, plugins, and dynamic CSVs
+type DownloadURLs map[string]string
 
 // CommandMessage is received from the Hub
 type CommandMessage struct {
 	Action       CommandAction     `json:"action"`
 	RunID        string            `json:"run_id"`
+	RunMode      string            `json:"run_mode"`
 	DownloadURLs DownloadURLs      `json:"download_urls,omitempty"`
 	JmeterParams map[string]string `json:"jmeter_params,omitempty"`
 }
@@ -38,6 +36,7 @@ type CommandMessage struct {
 // StatusMessage is sent to the Hub
 type StatusMessage struct {
 	RunID   string      `json:"run_id"`
+	AgentID string      `json:"agent_id"`
 	Status  AgentStatus `json:"status"`
 	Message string      `json:"message,omitempty"`
 }
@@ -45,6 +44,7 @@ type StatusMessage struct {
 // LogMessage is sent to the Hub to stream execution logs
 type LogMessage struct {
 	RunID     string    `json:"run_id"`
+	AgentID   string    `json:"agent_id"`
 	LogLine   string    `json:"log_line"`
 	Timestamp time.Time `json:"timestamp"`
 }

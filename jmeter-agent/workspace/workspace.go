@@ -7,17 +7,18 @@ import (
 	"net/http"
 	"os"
 	"path/filepath"
+	"time"
 )
 
-// CreateRunDirectory creates a temporary, isolated folder for a specific test run
-func CreateRunDirectory(runID string) (string, error) {
-	slog.Info("Creating run directory", "run_id", runID)
+// CreateRunDirectory creates a temporary, isolated folder for a specific test run and agent
+func CreateRunDirectory(runID string, agentID string) (string, error) {
+	slog.Info("Creating run directory", "run_id", runID, "agent_id", agentID)
 
-	dir := filepath.Join(".", "runs", runID)
+	dir := filepath.Join(".", "runs", fmt.Sprintf("%s_%s", runID, agentID))
 
 	err := os.MkdirAll(dir, 0755)
 	if err != nil {
-		slog.Error("Failed to create run directory", "run_id", runID, "error", err)
+		slog.Error("Failed to create run directory", "run_id", runID, "agent_id", agentID, "error", err)
 		return "", err
 	}
 
@@ -25,7 +26,9 @@ func CreateRunDirectory(runID string) (string, error) {
 	return dir, nil
 }
 
-// DownloadFile downloads a file from the given url to the destPath
+// DownloadFile downloads a file from the given url to the destPath.
+// A 5-minute timeout is applied and the response body is limited to 500MB
+// to prevent hangs and disk exhaustion from a slow or malicious server.
 func DownloadFile(url string, destPath string) error {
 	slog.Info("Starting download", "url", url, "dest", destPath)
 
@@ -36,7 +39,8 @@ func DownloadFile(url string, destPath string) error {
 	}
 	defer out.Close()
 
-	resp, err := http.Get(url)
+	client := &http.Client{Timeout: 5 * time.Minute}
+	resp, err := client.Get(url)
 	if err != nil {
 		slog.Error("Failed to issue GET request", "url", url, "error", err)
 		return err
@@ -49,7 +53,8 @@ func DownloadFile(url string, destPath string) error {
 		return err
 	}
 
-	bytesWritten, err := io.Copy(out, resp.Body)
+	const maxDownloadSize = 500 * 1024 * 1024 // 500 MB
+	bytesWritten, err := io.Copy(out, io.LimitReader(resp.Body, maxDownloadSize))
 	if err != nil {
 		slog.Error("Failed to write data to file", "path", destPath, "error", err)
 		return err

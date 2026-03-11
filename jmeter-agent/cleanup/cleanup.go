@@ -10,12 +10,13 @@ import (
 	"net/http"
 	"os"
 	"path/filepath"
+	"time"
 )
 
 // ArchiveResults zips the .jtl and jmeter.log files in the isolated run directory.
-func ArchiveResults(runID string) (string, error) {
-	slog.Info("Archiving results", "run_id", runID)
-	runDir := filepath.Join(".", "runs", runID)
+func ArchiveResults(runID string, agentID string) (string, error) {
+	slog.Info("Archiving results", "run_id", runID, "agent_id", agentID)
+	runDir := filepath.Join(".", "runs", fmt.Sprintf("%s_%s", runID, agentID))
 	zipPath := filepath.Join(runDir, "results.zip")
 
 	zipFile, err := os.Create(zipPath)
@@ -29,6 +30,7 @@ func ArchiveResults(runID string) (string, error) {
 	defer archive.Close()
 
 	filesToZip := []string{"results.jtl", "jmeter.log"}
+	filesAdded := 0
 
 	for _, fileName := range filesToZip {
 		filePath := filepath.Join(runDir, fileName)
@@ -54,6 +56,14 @@ func ArchiveResults(runID string) (string, error) {
 			return "", err
 		}
 		f.Close()
+		filesAdded++
+	}
+
+	if filesAdded == 0 {
+		slog.Warn("No files were added to the archive", "run_id", runID)
+		// We still return the zipPath so UploadResults can try (or fail cleanly),
+		// but an empty zip is often invalid. Let's just return an error to skip upload.
+		return "", fmt.Errorf("no results files found to archive")
 	}
 
 	slog.Info("Successfully archived results", "zip_path", zipPath)
@@ -93,7 +103,7 @@ func UploadResults(zipPath string, targetURL string) error {
 	}
 	req.Header.Set("Content-Type", writer.FormDataContentType())
 
-	client := &http.Client{}
+	client := &http.Client{Timeout: 60 * time.Second}
 	resp, err := client.Do(req)
 	if err != nil {
 		slog.Error("Failed to execute HTTP POST for upload", "error", err)
@@ -112,15 +122,15 @@ func UploadResults(zipPath string, targetURL string) error {
 }
 
 // WipeWorkspace completely deletes the run directory.
-func WipeWorkspace(runID string) error {
-	slog.Info("Wiping workspace", "run_id", runID)
-	runDir := filepath.Join(".", "runs", runID)
+func WipeWorkspace(runID string, agentID string) error {
+	slog.Info("Wiping workspace", "run_id", runID, "agent_id", agentID)
+	runDir := filepath.Join(".", "runs", fmt.Sprintf("%s_%s", runID, agentID))
 
 	if err := os.RemoveAll(runDir); err != nil {
-		slog.Error("Failed to completely wipe workspace", "run_id", runID, "error", err)
+		slog.Error("Failed to completely wipe workspace", "run_id", runID, "agent_id", agentID, "error", err)
 		return err
 	}
 
-	slog.Info("Workspace successfully wiped", "run_id", runID)
+	slog.Info("Workspace successfully wiped", "run_id", runID, "agent_id", agentID)
 	return nil
 }

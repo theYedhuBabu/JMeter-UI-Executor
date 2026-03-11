@@ -4,17 +4,40 @@ export type ConnectionStatus = 'connecting' | 'connected' | 'disconnected';
 
 export interface CommandPayload {
     action: 'start' | 'stop';
-    agentId?: string;
+    targetAgentId?: string;
     [key: string]: any;
 }
 
-export function useAgentSocket(url: string = 'ws://localhost:8080/ws') {
+export interface MetricPayload {
+    type: 'metric';
+    log_line: string;
+    data: string;
+}
+
+export interface LogEntry {
+    agentId: string;
+    text: string;
+}
+
+export type AgentRunStatus = 'running' | 'completed' | 'failed' | 'stopped' | null;
+
+export function useAgentSocket(url: string = 'ws://localhost:8080/ws', recoveredRunId?: string) {
     const [connectionStatus, setConnectionStatus] = useState<ConnectionStatus>('disconnected');
-    const [logs, setLogs] = useState<string[]>([]);
+    const [logs, setLogs] = useState<LogEntry[]>([]);
+    const [metrics, setMetrics] = useState<MetricPayload[]>([]);
+
+    // Use an internal ref to access the latest runStatus inside callbacks without dependency issues
+    const [runStatus, _setRunStatus] = useState<AgentRunStatus>(recoveredRunId ? 'running' : null);
+    const runStatusRef = useRef<AgentRunStatus>(recoveredRunId ? 'running' : null);
+
+    const setRunStatus = useCallback((status: AgentRunStatus) => {
+        runStatusRef.current = status;
+        _setRunStatus(status);
+    }, []);
 
     const wsRef = useRef<WebSocket | null>(null);
     const reconnectTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-    const logBufferRef = useRef<string[]>([]);
+    const logBufferRef = useRef<LogEntry[]>([]);
     const MAX_LOGS = 1000;
 
     const connect = useCallback(() => {
@@ -33,20 +56,34 @@ export function useAgentSocket(url: string = 'ws://localhost:8080/ws') {
                 clearTimeout(reconnectTimeoutRef.current);
                 reconnectTimeoutRef.current = null;
             }
+            // Clear logs only if we are starting fresh and not recovering/reconnecting to an active run
+            if (runStatusRef.current !== 'running') {
+                setLogs([]);
+                setMetrics([]);
+            }
         };
 
         ws.onmessage = (event) => {
-            // Try parsing if it's a JSON payload like {"log_line": "...", "run_id": "..."}
             let logText = event.data;
+            let agentId = 'SYSTEM';
             try {
                 const parsed = JSON.parse(event.data);
-                if (parsed && typeof parsed.log_line === 'string') {
+                if (parsed && typeof parsed.status === 'string') {
+                    setRunStatus(parsed.status as AgentRunStatus);
+                    logText = `Agent status updated: ${parsed.status}`;
+                    agentId = parsed.agent_id || 'SYSTEM';
+                } else if (parsed && parsed.type === 'metric') {
+                    setMetrics(prev => [...prev.slice(-999), parsed]); // Keep last 1000 metrics
+                    // Do not push metrics to the stdout log UI, so we return early
+                    return;
+                } else if (parsed && typeof parsed.log_line === 'string') {
                     logText = parsed.log_line;
+                    agentId = parsed.agent_id || 'UNKNOWN';
                 }
             } catch (err) {
                 // Ignore parse errors, fallback to raw text
             }
-            logBufferRef.current.push(logText);
+            logBufferRef.current.push({ agentId, text: logText });
         };
 
         ws.onclose = () => {
@@ -106,5 +143,5 @@ export function useAgentSocket(url: string = 'ws://localhost:8080/ws') {
         }
     }, []);
 
-    return { connectionStatus, logs, sendCommand };
+    return { connectionStatus, logs, metrics, runStatus, sendCommand };
 }

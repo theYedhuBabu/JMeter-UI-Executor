@@ -1,161 +1,38 @@
 nohup: ignoring input
-{"time":"2026-03-04T00:38:51.782885598+05:30","level":"INFO","msg":"Starting JMeter Agent..."}
-{"time":"2026-03-04T00:38:51.78366965+05:30","level":"INFO","msg":"Connected to Hub successfully","url":"ws://localhost:8080/ws?agentId=QB-IPL-2988"}
-{"time":"2026-03-04T00:38:51.783698078+05:30","level":"INFO","msg":"Agent is running and waiting for commands...","hub_url":"ws://localhost:8080/ws"}
-{"time":"2026-03-04T00:41:09.802852781+05:30","level":"ERROR","msg":"Read error, will attempt to reconnect","error":"websocket: close 1006 (abnormal closure): unexpected EOF"}
-{"time":"2026-03-04T00:41:09.803336554+05:30","level":"WARN","msg":"Connection failed, retrying","error":"dial tcp 127.0.0.1:8080: connect: connection refused","delay":1000000000}
-{"time":"2026-03-04T00:41:10.803886478+05:30","level":"WARN","msg":"Connection failed, retrying","error":"dial tcp 127.0.0.1:8080: connect: connection refused","delay":2000000000}
-{"time":"2026-03-04T00:41:12.805368864+05:30","level":"WARN","msg":"Connection failed, retrying","error":"dial tcp 127.0.0.1:8080: connect: connection refused","delay":4000000000}
-{"time":"2026-03-04T00:41:16.808741753+05:30","level":"INFO","msg":"Connected to Hub successfully","url":"ws://localhost:8080/ws?agentId=QB-IPL-2988"}
-{"time":"2026-03-04T00:45:21.652857205+05:30","level":"ERROR","msg":"Read error, will attempt to reconnect","error":"websocket: close 1006 (abnormal closure): unexpected EOF"}
-{"time":"2026-03-04T00:45:21.653818614+05:30","level":"WARN","msg":"Connection failed, retrying","error":"dial tcp 127.0.0.1:8080: connect: connection refused","delay":1000000000}
-{"time":"2026-03-04T00:45:22.654995979+05:30","level":"WARN","msg":"Connection failed, retrying","error":"dial tcp 127.0.0.1:8080: connect: connection refused","delay":2000000000}
-{"time":"2026-03-04T00:45:24.655559326+05:30","level":"WARN","msg":"Connection failed, retrying","error":"dial tcp 127.0.0.1:8080: connect: connection refused","delay":4000000000}
-{"time":"2026-03-04T00:45:28.658404757+05:30","level":"WARN","msg":"Connection failed, retrying","error":"dial tcp 127.0.0.1:8080: connect: connection refused","delay":8000000000}
-{"time":"2026-03-04T00:45:36.666939137+05:30","level":"INFO","msg":"Connected to Hub successfully","url":"ws://localhost:8080/ws?agentId=QB-IPL-2988"}
-{"time":"2026-03-04T00:46:14.597532752+05:30","level":"ERROR","msg":"Read error, will attempt to reconnect","error":"websocket: close 1006 (abnormal closure): unexpected EOF"}
-{"time":"2026-03-04T00:46:14.597907986+05:30","level":"WARN","msg":"Connection failed, retrying","error":"dial tcp 127.0.0.1:8080: connect: connection refused","delay":1000000000}
-{"time":"2026-03-04T00:46:15.59840306+05:30","level":"WARN","msg":"Connection failed, retrying","error":"dial tcp 127.0.0.1:8080: connect: connection refused","delay":2000000000}
-{"time":"2026-03-04T00:46:17.599937273+05:30","level":"WARN","msg":"Connection failed, retrying","error":"dial tcp 127.0.0.1:8080: connect: connection refused","delay":4000000000}
-{"time":"2026-03-04T00:46:21.602493396+05:30","level":"WARN","msg":"Connection failed, retrying","error":"dial tcp 127.0.0.1:8080: connect: connection refused","delay":8000000000}
-{"time":"2026-03-04T00:46:29.609483815+05:30","level":"WARN","msg":"Connection failed, retrying","error":"dial tcp 127.0.0.1:8080: connect: connection refused","delay":16000000000}
-{"time":"2026-03-04T00:46:45.62462128+05:30","level":"WARN","msg":"Connection failed, retrying","error":"dial tcp 127.0.0.1:8080: connect: connection refused","delay":32000000000}
-{"time":"2026-03-04T00:47:17.626421521+05:30","level":"WARN","msg":"Connection failed, retrying","error":"dial tcp 127.0.0.1:8080: connect: connection refused","delay":64000000000}
-{"time":"2026-03-04T00:48:21.645863314+05:30","level":"INFO","msg":"Connected to Hub successfully","url":"ws://localhost:8080/ws?agentId=QB-IPL-2988"}
-{"time":"2026-03-04T00:48:46.562218808+05:30","level":"INFO","msg":"Received stop command","run_id":""}
-{"time":"2026-03-04T00:48:46.562350543+05:30","level":"INFO","msg":"Executing stopTest command","run_id":""}
-{"time":"2026-03-04T00:48:46.562416618+05:30","level":"WARN","msg":"Attempted to stop run, but no active process found","run_id":""}
-{"time":"2026-03-04T00:48:46.562424243+05:30","level":"ERROR","msg":"Failed to stop test","run_id":"","error":"no active process found for runID: "}
-{"time":"2026-03-04T00:48:55.332828783+05:30","level":"ERROR","msg":"Read error, will attempt to reconnect","error":"websocket: close 1006 (abnormal closure): unexpected EOF"}
-{"time":"2026-03-04T00:48:55.333243644+05:30","level":"WARN","msg":"Connection failed, retrying","error":"dial tcp 127.0.0.1:8080: connect: connection refused","delay":1000000000}
-{"time":"2026-03-04T00:48:56.334519734+05:30","level":"WARN","msg":"Connection failed, retrying","error":"dial tcp 127.0.0.1:8080: connect: connection refused","delay":2000000000}
-{"time":"2026-03-04T00:48:58.335494871+05:30","level":"WARN","msg":"Connection failed, retrying","error":"dial tcp 127.0.0.1:8080: connect: connection refused","delay":4000000000}
-{"time":"2026-03-04T00:49:02.338953363+05:30","level":"WARN","msg":"Connection failed, retrying","error":"dial tcp 127.0.0.1:8080: connect: connection refused","delay":8000000000}
-{"time":"2026-03-04T00:49:10.345823443+05:30","level":"WARN","msg":"Connection failed, retrying","error":"dial tcp 127.0.0.1:8080: connect: connection refused","delay":16000000000}
-{"time":"2026-03-04T00:49:26.361298088+05:30","level":"WARN","msg":"Connection failed, retrying","error":"dial tcp 127.0.0.1:8080: connect: connection refused","delay":32000000000}
-{"time":"2026-03-04T00:49:58.363528839+05:30","level":"WARN","msg":"Connection failed, retrying","error":"dial tcp 127.0.0.1:8080: connect: connection refused","delay":64000000000}
-{"time":"2026-03-04T00:51:02.364033342+05:30","level":"WARN","msg":"Connection failed, retrying","error":"dial tcp 127.0.0.1:8080: connect: connection refused","delay":128000000000}
-{"time":"2026-03-04T00:53:10.375416002+05:30","level":"WARN","msg":"Connection failed, retrying","error":"dial tcp 127.0.0.1:8080: connect: connection refused","delay":256000000000}
-{"time":"2026-03-04T00:57:26.474501649+05:30","level":"WARN","msg":"Connection failed, retrying","error":"dial tcp 127.0.0.1:8080: connect: connection refused","delay":512000000000}
-{"time":"2026-03-04T01:05:58.574185531+05:30","level":"ERROR","msg":"Failed to reconnect","error":"dial tcp 127.0.0.1:8080: connect: connection refused"}
-{"time":"2026-03-04T01:06:03.578740653+05:30","level":"WARN","msg":"Connection failed, retrying","error":"dial tcp 127.0.0.1:8080: connect: connection refused","delay":1000000000}
-{"time":"2026-03-04T01:06:04.579444289+05:30","level":"WARN","msg":"Connection failed, retrying","error":"dial tcp 127.0.0.1:8080: connect: connection refused","delay":2000000000}
-{"time":"2026-03-04T01:06:06.580610639+05:30","level":"WARN","msg":"Connection failed, retrying","error":"dial tcp 127.0.0.1:8080: connect: connection refused","delay":4000000000}
-{"time":"2026-03-04T01:06:10.583515939+05:30","level":"WARN","msg":"Connection failed, retrying","error":"dial tcp 127.0.0.1:8080: connect: connection refused","delay":8000000000}
-{"time":"2026-03-04T01:06:18.590894379+05:30","level":"WARN","msg":"Connection failed, retrying","error":"dial tcp 127.0.0.1:8080: connect: connection refused","delay":16000000000}
-{"time":"2026-03-04T01:06:34.601597851+05:30","level":"WARN","msg":"Connection failed, retrying","error":"dial tcp 127.0.0.1:8080: connect: connection refused","delay":32000000000}
-{"time":"2026-03-04T01:07:06.606952279+05:30","level":"WARN","msg":"Connection failed, retrying","error":"dial tcp 127.0.0.1:8080: connect: connection refused","delay":64000000000}
-{"time":"2026-03-04T01:08:10.625651051+05:30","level":"WARN","msg":"Connection failed, retrying","error":"dial tcp 127.0.0.1:8080: connect: connection refused","delay":128000000000}
-{"time":"2026-03-04T01:10:18.708783437+05:30","level":"INFO","msg":"Connected to Hub successfully","url":"ws://localhost:8080/ws?agentId=QB-IPL-2988"}
-{"time":"2026-03-04T01:14:50.918851866+05:30","level":"ERROR","msg":"Read error, will attempt to reconnect","error":"websocket: close 1006 (abnormal closure): unexpected EOF"}
-{"time":"2026-03-04T01:14:50.919231196+05:30","level":"WARN","msg":"Connection failed, retrying","error":"dial tcp 127.0.0.1:8080: connect: connection refused","delay":1000000000}
-{"time":"2026-03-04T01:14:51.920524019+05:30","level":"WARN","msg":"Connection failed, retrying","error":"dial tcp 127.0.0.1:8080: connect: connection refused","delay":2000000000}
-{"time":"2026-03-04T01:14:53.921424887+05:30","level":"WARN","msg":"Connection failed, retrying","error":"dial tcp 127.0.0.1:8080: connect: connection refused","delay":4000000000}
-{"time":"2026-03-04T01:14:57.92245972+05:30","level":"WARN","msg":"Connection failed, retrying","error":"dial tcp 127.0.0.1:8080: connect: connection refused","delay":8000000000}
-{"time":"2026-03-04T01:15:05.926046725+05:30","level":"WARN","msg":"Connection failed, retrying","error":"dial tcp 127.0.0.1:8080: connect: connection refused","delay":16000000000}
-{"time":"2026-03-04T01:15:21.94190682+05:30","level":"INFO","msg":"Connected to Hub successfully","url":"ws://localhost:8080/ws?agentId=QB-IPL-2988"}
-{"time":"2026-03-04T01:15:31.637744806+05:30","level":"INFO","msg":"Received start command","run_id":"run-1772567131"}
-{"time":"2026-03-04T01:15:31.637881712+05:30","level":"INFO","msg":"Executing startTest command","run_id":"run-1772567131"}
-{"time":"2026-03-04T01:15:31.637950806+05:30","level":"INFO","msg":"Preparing to execute JMeter","run_id":"run-1772567131","jmx":"workspace/run-1772567131/script.jmx"}
-{"time":"2026-03-04T01:15:31.638228927+05:30","level":"ERROR","msg":"Failed to start JMeter process","run_id":"run-1772567131","error":"exec: \"jmeter\": executable file not found in $PATH"}
-{"time":"2026-03-04T01:15:31.638255482+05:30","level":"ERROR","msg":"Failed to initiate execution","run_id":"run-1772567131","error":"exec: \"jmeter\": executable file not found in $PATH"}
-{"time":"2026-03-04T01:15:31.638506981+05:30","level":"WARN","msg":"Unknown command action","action":""}
-{"time":"2026-03-04T01:15:57.404834839+05:30","level":"INFO","msg":"Received stop command","run_id":""}
-{"time":"2026-03-04T01:15:57.404890958+05:30","level":"INFO","msg":"Executing stopTest command","run_id":""}
-{"time":"2026-03-04T01:15:57.40490747+05:30","level":"WARN","msg":"Attempted to stop run, but no active process found","run_id":""}
-{"time":"2026-03-04T01:15:57.404914735+05:30","level":"ERROR","msg":"Failed to stop test","run_id":"","error":"no active process found for runID: "}
-{"time":"2026-03-04T01:16:13.464282167+05:30","level":"INFO","msg":"Received start command","run_id":"run-1772567173"}
-{"time":"2026-03-04T01:16:13.464355886+05:30","level":"INFO","msg":"Executing startTest command","run_id":"run-1772567173"}
-{"time":"2026-03-04T01:16:13.464375126+05:30","level":"INFO","msg":"Preparing to execute JMeter","run_id":"run-1772567173","jmx":"workspace/run-1772567173/script.jmx"}
-{"time":"2026-03-04T01:16:13.464487153+05:30","level":"ERROR","msg":"Failed to start JMeter process","run_id":"run-1772567173","error":"exec: \"jmeter\": executable file not found in $PATH"}
-{"time":"2026-03-04T01:16:13.464505868+05:30","level":"ERROR","msg":"Failed to initiate execution","run_id":"run-1772567173","error":"exec: \"jmeter\": executable file not found in $PATH"}
-{"time":"2026-03-04T01:16:13.464675523+05:30","level":"WARN","msg":"Unknown command action","action":""}
-{"time":"2026-03-04T01:16:32.426822834+05:30","level":"INFO","msg":"Received stop command","run_id":""}
-{"time":"2026-03-04T01:16:32.426871998+05:30","level":"INFO","msg":"Executing stopTest command","run_id":""}
-{"time":"2026-03-04T01:16:32.4268854+05:30","level":"WARN","msg":"Attempted to stop run, but no active process found","run_id":""}
-{"time":"2026-03-04T01:16:32.426891841+05:30","level":"ERROR","msg":"Failed to stop test","run_id":"","error":"no active process found for runID: "}
-{"time":"2026-03-04T01:17:38.259250701+05:30","level":"ERROR","msg":"Read error, will attempt to reconnect","error":"websocket: close 1006 (abnormal closure): unexpected EOF"}
-{"time":"2026-03-04T01:17:38.259699+05:30","level":"WARN","msg":"Connection failed, retrying","error":"dial tcp 127.0.0.1:8080: connect: connection refused","delay":1000000000}
-{"time":"2026-03-04T01:17:39.260036496+05:30","level":"WARN","msg":"Connection failed, retrying","error":"dial tcp 127.0.0.1:8080: connect: connection refused","delay":2000000000}
-{"time":"2026-03-04T01:17:41.261395299+05:30","level":"WARN","msg":"Connection failed, retrying","error":"dial tcp 127.0.0.1:8080: connect: connection refused","delay":4000000000}
-{"time":"2026-03-04T01:17:45.264826406+05:30","level":"WARN","msg":"Connection failed, retrying","error":"dial tcp 127.0.0.1:8080: connect: connection refused","delay":8000000000}
-{"time":"2026-03-04T01:17:53.271451135+05:30","level":"WARN","msg":"Connection failed, retrying","error":"dial tcp 127.0.0.1:8080: connect: connection refused","delay":16000000000}
-{"time":"2026-03-04T01:18:09.286835834+05:30","level":"WARN","msg":"Connection failed, retrying","error":"dial tcp 127.0.0.1:8080: connect: connection refused","delay":32000000000}
-{"time":"2026-03-04T01:18:41.302882368+05:30","level":"WARN","msg":"Connection failed, retrying","error":"dial tcp 127.0.0.1:8080: connect: connection refused","delay":64000000000}
-{"time":"2026-03-04T01:19:45.331860855+05:30","level":"WARN","msg":"Connection failed, retrying","error":"dial tcp 127.0.0.1:8080: connect: connection refused","delay":128000000000}
-{"time":"2026-03-04T01:21:53.390969027+05:30","level":"WARN","msg":"Connection failed, retrying","error":"dial tcp 127.0.0.1:8080: connect: connection refused","delay":256000000000}
-{"time":"2026-03-04T01:26:09.490735388+05:30","level":"INFO","msg":"Connected to Hub successfully","url":"ws://localhost:8080/ws?agentId=QB-IPL-2988"}
-{"time":"2026-03-04T01:31:02.290961258+05:30","level":"INFO","msg":"Received start command","run_id":"run-1772568062"}
-{"time":"2026-03-04T01:31:02.291021568+05:30","level":"INFO","msg":"Executing startTest command","run_id":"run-1772568062"}
-{"time":"2026-03-04T01:31:02.291048606+05:30","level":"INFO","msg":"Preparing to execute JMeter","run_id":"run-1772568062","jmx":"workspace/run-1772568062/script.jmx"}
-{"time":"2026-03-04T01:31:02.291181638+05:30","level":"ERROR","msg":"Failed to start JMeter process","run_id":"run-1772568062","error":"exec: \"jmeter\": executable file not found in $PATH"}
-{"time":"2026-03-04T01:31:02.291197955+05:30","level":"ERROR","msg":"Failed to initiate execution","run_id":"run-1772568062","error":"exec: \"jmeter\": executable file not found in $PATH"}
-{"time":"2026-03-04T01:31:02.291337304+05:30","level":"WARN","msg":"Unknown command action","action":""}
-{"time":"2026-03-04T01:37:05.613142671+05:30","level":"ERROR","msg":"Read error, will attempt to reconnect","error":"websocket: close 1006 (abnormal closure): unexpected EOF"}
-{"time":"2026-03-04T01:37:05.613722188+05:30","level":"WARN","msg":"Connection failed, retrying","error":"dial tcp 127.0.0.1:8080: connect: connection refused","delay":1000000000}
-{"time":"2026-03-04T01:37:06.6147553+05:30","level":"WARN","msg":"Connection failed, retrying","error":"dial tcp 127.0.0.1:8080: connect: connection refused","delay":2000000000}
-{"time":"2026-03-04T01:37:08.616340723+05:30","level":"WARN","msg":"Connection failed, retrying","error":"dial tcp 127.0.0.1:8080: connect: connection refused","delay":4000000000}
-{"time":"2026-03-04T01:37:12.619843102+05:30","level":"WARN","msg":"Connection failed, retrying","error":"dial tcp 127.0.0.1:8080: connect: connection refused","delay":8000000000}
-{"time":"2026-03-04T01:37:20.626485719+05:30","level":"WARN","msg":"Connection failed, retrying","error":"dial tcp 127.0.0.1:8080: connect: connection refused","delay":16000000000}
-{"time":"2026-03-04T01:37:36.642132257+05:30","level":"WARN","msg":"Connection failed, retrying","error":"dial tcp 127.0.0.1:8080: connect: connection refused","delay":32000000000}
-{"time":"2026-03-04T01:38:08.655227785+05:30","level":"WARN","msg":"Connection failed, retrying","error":"dial tcp 127.0.0.1:8080: connect: connection refused","delay":64000000000}
-{"time":"2026-03-04T01:39:12.718764653+05:30","level":"INFO","msg":"Connected to Hub successfully","url":"ws://localhost:8080/ws?agentId=QB-IPL-2988"}
-{"time":"2026-03-04T01:39:51.89682362+05:30","level":"INFO","msg":"Received stop command","run_id":""}
-{"time":"2026-03-04T01:39:51.896873302+05:30","level":"INFO","msg":"Executing stopTest command","run_id":""}
-{"time":"2026-03-04T01:39:51.896888087+05:30","level":"WARN","msg":"Attempted to stop run, but no active process found","run_id":""}
-{"time":"2026-03-04T01:39:51.896894519+05:30","level":"ERROR","msg":"Failed to stop test","run_id":"","error":"no active process found for runID: "}
-{"time":"2026-03-04T01:42:56.353346312+05:30","level":"ERROR","msg":"Read error, will attempt to reconnect","error":"websocket: close 1006 (abnormal closure): unexpected EOF"}
-{"time":"2026-03-04T01:42:56.353783611+05:30","level":"WARN","msg":"Connection failed, retrying","error":"dial tcp 127.0.0.1:8080: connect: connection refused","delay":1000000000}
-{"time":"2026-03-04T01:42:57.354568936+05:30","level":"WARN","msg":"Connection failed, retrying","error":"dial tcp 127.0.0.1:8080: connect: connection refused","delay":2000000000}
-{"time":"2026-03-04T01:42:59.355608678+05:30","level":"WARN","msg":"Connection failed, retrying","error":"dial tcp 127.0.0.1:8080: connect: connection refused","delay":4000000000}
-{"time":"2026-03-04T01:43:03.358425533+05:30","level":"WARN","msg":"Connection failed, retrying","error":"dial tcp 127.0.0.1:8080: connect: connection refused","delay":8000000000}
-{"time":"2026-03-04T01:43:11.365951413+05:30","level":"WARN","msg":"Connection failed, retrying","error":"dial tcp 127.0.0.1:8080: connect: connection refused","delay":16000000000}
-{"time":"2026-03-04T01:43:27.366515003+05:30","level":"WARN","msg":"Connection failed, retrying","error":"dial tcp 127.0.0.1:8080: connect: connection refused","delay":32000000000}
-{"time":"2026-03-04T01:43:59.382859785+05:30","level":"INFO","msg":"Connected to Hub successfully","url":"ws://localhost:8080/ws?agentId=QB-IPL-2988"}
-{"time":"2026-03-04T01:44:05.27195735+05:30","level":"INFO","msg":"Received start command","run_id":"run-1772568845"}
-{"time":"2026-03-04T01:44:05.272020749+05:30","level":"INFO","msg":"Executing startTest command","run_id":"run-1772568845"}
-{"time":"2026-03-04T01:44:05.272045224+05:30","level":"INFO","msg":"Preparing to execute JMeter","run_id":"run-1772568845","jmx":"workspace/run-1772568845/script.jmx"}
-{"time":"2026-03-04T01:44:05.272179585+05:30","level":"ERROR","msg":"Failed to start JMeter process","run_id":"run-1772568845","error":"exec: \"jmeter\": executable file not found in $PATH"}
-{"time":"2026-03-04T01:44:05.272199323+05:30","level":"ERROR","msg":"Failed to initiate execution","run_id":"run-1772568845","error":"exec: \"jmeter\": executable file not found in $PATH"}
-{"time":"2026-03-04T01:44:05.272328458+05:30","level":"WARN","msg":"Unknown command action","action":""}
-{"time":"2026-03-04T01:44:36.456336271+05:30","level":"INFO","msg":"Received stop command","run_id":""}
-{"time":"2026-03-04T01:44:36.456382345+05:30","level":"INFO","msg":"Executing stopTest command","run_id":""}
-{"time":"2026-03-04T01:44:36.456397529+05:30","level":"WARN","msg":"Attempted to stop run, but no active process found","run_id":""}
-{"time":"2026-03-04T01:44:36.456403771+05:30","level":"ERROR","msg":"Failed to stop test","run_id":"","error":"no active process found for runID: "}
-{"time":"2026-03-04T01:45:10.272064898+05:30","level":"ERROR","msg":"Read error, will attempt to reconnect","error":"websocket: close 1006 (abnormal closure): unexpected EOF"}
-{"time":"2026-03-04T01:45:10.272478723+05:30","level":"WARN","msg":"Connection failed, retrying","error":"dial tcp 127.0.0.1:8080: connect: connection refused","delay":1000000000}
-{"time":"2026-03-04T01:45:11.272907851+05:30","level":"WARN","msg":"Connection failed, retrying","error":"dial tcp 127.0.0.1:8080: connect: connection refused","delay":2000000000}
-{"time":"2026-03-04T01:45:13.27433216+05:30","level":"WARN","msg":"Connection failed, retrying","error":"dial tcp 127.0.0.1:8080: connect: connection refused","delay":4000000000}
-{"time":"2026-03-04T01:45:17.275558513+05:30","level":"WARN","msg":"Connection failed, retrying","error":"dial tcp 127.0.0.1:8080: connect: connection refused","delay":8000000000}
-{"time":"2026-03-04T01:45:25.277450552+05:30","level":"WARN","msg":"Connection failed, retrying","error":"dial tcp 127.0.0.1:8080: connect: connection refused","delay":16000000000}
-{"time":"2026-03-04T01:45:41.284555842+05:30","level":"WARN","msg":"Connection failed, retrying","error":"dial tcp 127.0.0.1:8080: connect: connection refused","delay":32000000000}
-{"time":"2026-03-04T01:46:13.316329875+05:30","level":"INFO","msg":"Connected to Hub successfully","url":"ws://localhost:8080/ws?agentId=QB-IPL-2988"}
-{"time":"2026-03-04T01:46:22.919941812+05:30","level":"INFO","msg":"Received start command","run_id":"run-1772568982"}
-{"time":"2026-03-04T01:46:22.920008302+05:30","level":"INFO","msg":"Executing startTest command","run_id":"run-1772568982"}
-{"time":"2026-03-04T01:46:22.920034911+05:30","level":"INFO","msg":"Preparing to execute JMeter","run_id":"run-1772568982","jmx":"workspace/run-1772568982/script.jmx"}
-{"time":"2026-03-04T01:46:22.920174588+05:30","level":"ERROR","msg":"Failed to start JMeter process","run_id":"run-1772568982","error":"exec: \"jmeter\": executable file not found in $PATH"}
-{"time":"2026-03-04T01:46:22.920197112+05:30","level":"ERROR","msg":"Failed to initiate execution","run_id":"run-1772568982","error":"exec: \"jmeter\": executable file not found in $PATH"}
-{"time":"2026-03-04T01:46:22.920356386+05:30","level":"WARN","msg":"Unknown command action","action":""}
-{"time":"2026-03-04T01:46:40.249528534+05:30","level":"INFO","msg":"Received stop command","run_id":""}
-{"time":"2026-03-04T01:46:40.249611025+05:30","level":"INFO","msg":"Executing stopTest command","run_id":""}
-{"time":"2026-03-04T01:46:40.249642979+05:30","level":"WARN","msg":"Attempted to stop run, but no active process found","run_id":""}
-{"time":"2026-03-04T01:46:40.24965451+05:30","level":"ERROR","msg":"Failed to stop test","run_id":"","error":"no active process found for runID: "}
-{"time":"2026-03-04T01:46:55.403196927+05:30","level":"INFO","msg":"Received start command","run_id":"run-1772569015"}
-{"time":"2026-03-04T01:46:55.40326811+05:30","level":"INFO","msg":"Executing startTest command","run_id":"run-1772569015"}
-{"time":"2026-03-04T01:46:55.403289519+05:30","level":"INFO","msg":"Preparing to execute JMeter","run_id":"run-1772569015","jmx":"workspace/run-1772569015/script.jmx"}
-{"time":"2026-03-04T01:46:55.40341352+05:30","level":"ERROR","msg":"Failed to start JMeter process","run_id":"run-1772569015","error":"exec: \"jmeter\": executable file not found in $PATH"}
-{"time":"2026-03-04T01:46:55.403429163+05:30","level":"ERROR","msg":"Failed to initiate execution","run_id":"run-1772569015","error":"exec: \"jmeter\": executable file not found in $PATH"}
-{"time":"2026-03-04T01:46:55.403563611+05:30","level":"WARN","msg":"Unknown command action","action":""}
-{"time":"2026-03-04T01:48:43.57158722+05:30","level":"INFO","msg":"Received stop command","run_id":""}
-{"time":"2026-03-04T01:48:43.571638573+05:30","level":"INFO","msg":"Executing stopTest command","run_id":""}
-{"time":"2026-03-04T01:48:43.571652227+05:30","level":"WARN","msg":"Attempted to stop run, but no active process found","run_id":""}
-{"time":"2026-03-04T01:48:43.571658813+05:30","level":"ERROR","msg":"Failed to stop test","run_id":"","error":"no active process found for runID: "}
-{"time":"2026-03-04T01:49:39.298966912+05:30","level":"ERROR","msg":"Read error, will attempt to reconnect","error":"websocket: close 1006 (abnormal closure): unexpected EOF"}
-{"time":"2026-03-04T01:49:39.299238586+05:30","level":"WARN","msg":"Connection failed, retrying","error":"dial tcp 127.0.0.1:8080: connect: connection refused","delay":1000000000}
-{"time":"2026-03-04T01:49:40.300389646+05:30","level":"WARN","msg":"Connection failed, retrying","error":"dial tcp 127.0.0.1:8080: connect: connection refused","delay":2000000000}
-{"time":"2026-03-04T01:49:42.301457646+05:30","level":"WARN","msg":"Connection failed, retrying","error":"dial tcp 127.0.0.1:8080: connect: connection refused","delay":4000000000}
-{"time":"2026-03-04T01:49:46.304447139+05:30","level":"WARN","msg":"Connection failed, retrying","error":"dial tcp 127.0.0.1:8080: connect: connection refused","delay":8000000000}
-{"time":"2026-03-04T01:49:54.311408245+05:30","level":"WARN","msg":"Connection failed, retrying","error":"dial tcp 127.0.0.1:8080: connect: connection refused","delay":16000000000}
-{"time":"2026-03-04T01:50:10.317735758+05:30","level":"WARN","msg":"Connection failed, retrying","error":"dial tcp 127.0.0.1:8080: connect: connection refused","delay":32000000000}
-{"time":"2026-03-04T01:50:42.349289555+05:30","level":"WARN","msg":"Connection failed, retrying","error":"dial tcp 127.0.0.1:8080: connect: connection refused","delay":64000000000}
-{"time":"2026-03-04T01:51:46.36793448+05:30","level":"INFO","msg":"Connected to Hub successfully","url":"ws://localhost:8080/ws?agentId=QB-IPL-2988"}
+{"time":"2026-03-04T22:02:11.435423438+05:30","level":"INFO","msg":"Starting JMeter Agent..."}
+{"time":"2026-03-04T22:02:11.436792146+05:30","level":"INFO","msg":"Connected to Hub successfully","url":"ws://localhost:8080/ws?agentId=QB-IPL-2988-23fe"}
+{"time":"2026-03-04T22:02:11.436873755+05:30","level":"INFO","msg":"Agent is running and waiting for commands...","hub_url":"ws://localhost:8080/ws"}
+{"time":"2026-03-04T22:03:05.024348193+05:30","level":"INFO","msg":"Received start command","run_id":"run-1772641985"}
+{"time":"2026-03-04T22:03:05.024428674+05:30","level":"INFO","msg":"Executing startTest command","run_id":"run-1772641985"}
+{"time":"2026-03-04T22:03:05.024451894+05:30","level":"INFO","msg":"Creating run directory","run_id":"run-1772641985"}
+{"time":"2026-03-04T22:03:05.024837637+05:30","level":"INFO","msg":"Successfully created run directory","path":"runs/run-1772641985"}
+{"time":"2026-03-04T22:03:05.024926563+05:30","level":"INFO","msg":"Starting download","url":"http://localhost:8080/master_workspace/Hub.jmx","dest":"runs/run-1772641985/script.jmx"}
+{"time":"2026-03-04T22:03:05.027885607+05:30","level":"INFO","msg":"Successfully downloaded file","dest":"runs/run-1772641985/script.jmx","bytes":2672}
+{"time":"2026-03-04T22:03:05.028185987+05:30","level":"INFO","msg":"Checking and injecting BackendListener if missing","run_id":"run-1772641985"}
+{"time":"2026-03-04T22:03:05.028716117+05:30","level":"INFO","msg":"Preparing to execute JMeter","run_id":"run-1772641985","jmx":"runs/run-1772641985/script.jmx"}
+{"time":"2026-03-04T22:03:05.030328142+05:30","level":"INFO","msg":"JMeter process started successfully","run_id":"run-1772641985","pid":676916}
+{"time":"2026-03-04T22:05:08.632315774+05:30","level":"INFO","msg":"JMeter process completed successfully","run_id":"run-1772641985"}
+{"time":"2026-03-04T22:05:08.632341491+05:30","level":"INFO","msg":"Archiving results","run_id":"run-1772641985"}
+{"time":"2026-03-04T22:05:08.63303556+05:30","level":"INFO","msg":"Successfully archived results","zip_path":"runs/run-1772641985/results.zip"}
+{"time":"2026-03-04T22:05:08.633173743+05:30","level":"INFO","msg":"Uploading results","zip_path":"runs/run-1772641985/results.zip","target_url":"http://localhost:8080/api/results/upload/run-1772641985"}
+{"time":"2026-03-04T22:05:08.640061177+05:30","level":"INFO","msg":"Successfully uploaded results to Hub","target_url":"http://localhost:8080/api/results/upload/run-1772641985"}
+{"time":"2026-03-04T22:05:08.64013171+05:30","level":"INFO","msg":"Wiping workspace","run_id":"run-1772641985"}
+{"time":"2026-03-04T22:05:08.64034314+05:30","level":"INFO","msg":"Workspace successfully wiped","run_id":"run-1772641985"}
+{"time":"2026-03-04T22:05:08.640479662+05:30","level":"WARN","msg":"Unknown command action","action":""}
+{"time":"2026-03-04T22:06:13.300900896+05:30","level":"ERROR","msg":"Read error, will attempt to reconnect","error":"websocket: close 1006 (abnormal closure): unexpected EOF"}
+{"time":"2026-03-04T22:06:13.3015945+05:30","level":"WARN","msg":"Connection failed, retrying","error":"dial tcp 127.0.0.1:8080: connect: connection refused","delay":1000000000}
+{"time":"2026-03-04T22:06:14.302875155+05:30","level":"INFO","msg":"Connected to Hub successfully","url":"ws://localhost:8080/ws?agentId=QB-IPL-2988-23fe"}
+{"time":"2026-03-04T22:06:42.664838029+05:30","level":"INFO","msg":"Received start command","run_id":"run-1772642202"}
+{"time":"2026-03-04T22:06:42.664992067+05:30","level":"INFO","msg":"Executing startTest command","run_id":"run-1772642202"}
+{"time":"2026-03-04T22:06:42.665043962+05:30","level":"INFO","msg":"Creating run directory","run_id":"run-1772642202"}
+{"time":"2026-03-04T22:06:42.665322467+05:30","level":"INFO","msg":"Successfully created run directory","path":"runs/run-1772642202"}
+{"time":"2026-03-04T22:06:42.66536211+05:30","level":"INFO","msg":"Starting download","url":"http://localhost:8080/master_workspace/Hub.jmx","dest":"runs/run-1772642202/script.jmx"}
+{"time":"2026-03-04T22:06:42.670675718+05:30","level":"INFO","msg":"Successfully downloaded file","dest":"runs/run-1772642202/script.jmx","bytes":2672}
+{"time":"2026-03-04T22:06:42.67070794+05:30","level":"INFO","msg":"Checking and injecting BackendListener if missing","run_id":"run-1772642202"}
+{"time":"2026-03-04T22:06:42.670853848+05:30","level":"INFO","msg":"Preparing to execute JMeter","run_id":"run-1772642202","jmx":"runs/run-1772642202/script.jmx"}
+{"time":"2026-03-04T22:06:42.671256505+05:30","level":"INFO","msg":"JMeter process started successfully","run_id":"run-1772642202","pid":685782}
+{"time":"2026-03-04T22:06:56.750596546+05:30","level":"INFO","msg":"Received stop command","run_id":""}
+{"time":"2026-03-04T22:06:56.750658946+05:30","level":"INFO","msg":"Executing stopTest command","run_id":""}
+{"time":"2026-03-04T22:06:56.750688108+05:30","level":"WARN","msg":"Attempted to stop run, but no active process found","run_id":""}
+{"time":"2026-03-04T22:06:56.750702545+05:30","level":"ERROR","msg":"Failed to stop test","run_id":"","error":"no active process found for runID: "}
+{"time":"2026-03-04T22:07:09.022211139+05:30","level":"INFO","msg":"Shutting down JMeter Agent..."}

@@ -1,7 +1,9 @@
 package main
 
 import (
+	"crypto/rand"
 	"flag"
+	"fmt"
 	"log/slog"
 	"os"
 	"os/signal"
@@ -31,7 +33,14 @@ func main() {
 	if id == "" {
 		hostname, err := os.Hostname()
 		if err == nil && hostname != "" {
-			id = hostname
+			// Append a short random string to the hostname
+			// to allow multiple agents on the same host default to unique IDs
+			randomBytes := make([]byte, 2)
+			if _, err := rand.Read(randomBytes); err == nil {
+				id = fmt.Sprintf("%s-%x", hostname, randomBytes)
+			} else {
+				id = hostname // Fallback
+			}
 		} else {
 			id = "agent-unknown"
 		}
@@ -47,7 +56,7 @@ func main() {
 	}
 
 	// 3. Connect to the Hub
-	client := network.NewClient(finalURL)
+	client := network.NewClient(finalURL, id)
 	if err := client.Connect(); err != nil {
 		slog.Error("Initial connection to Hub failed. Will retry in background.", "error", err)
 	}

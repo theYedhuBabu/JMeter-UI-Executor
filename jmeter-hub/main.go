@@ -5,9 +5,10 @@ import (
 	"io"
 	"io/fs"
 	"log/slog"
+	"mime"
 	"net/http"
 	"os"
-	"strings"
+	"path/filepath"
 
 	"github.com/gin-gonic/gin"
 
@@ -25,8 +26,9 @@ func main() {
 	slog.SetDefault(logger)
 	slog.Info("Starting JMeter Central Hub...")
 
-	// 2. Initialize Database
+	// 2. Initialize Database and Reset Stuck State
 	database.InitializeDB("./jmeter_hub.db")
+	database.ResetZombieRuns()
 
 	// 3. Initialize and Start the WebSocket Hub
 	wsHub := net.NewHub()
@@ -63,21 +65,11 @@ func main() {
 				fi, _ := file.Stat()
 				if !fi.IsDir() {
 					content, _ := io.ReadAll(file)
-					contentType := "text/plain"
-					if strings.HasSuffix(path, ".css") {
-						contentType = "text/css"
-					} else if strings.HasSuffix(path, ".js") {
-						contentType = "application/javascript"
-					} else if strings.HasSuffix(path, ".svg") {
-						contentType = "image/svg+xml"
-					} else if strings.HasSuffix(path, ".html") {
-						contentType = "text/html; charset=utf-8"
-					} else if strings.HasSuffix(path, ".png") {
-						contentType = "image/png"
-					} else if strings.HasSuffix(path, ".ico") {
-						contentType = "image/x-icon"
+					// Detect MIME type by extension using the standard library
+					contentType := mime.TypeByExtension(filepath.Ext(path))
+					if contentType == "" {
+						contentType = "application/octet-stream"
 					}
-
 					c.Data(http.StatusOK, contentType, content)
 					return
 				}
