@@ -2,3 +2,4 @@ apache-jmeter-*/
 *.jtl
 *.zip
 *.log
+*.jmx
