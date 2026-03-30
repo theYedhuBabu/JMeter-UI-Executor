@@ -60,12 +60,6 @@ func Execute(runID string, agentID string, jmxPath string, runMode string, jmete
 		return err
 	}
 
-	// Configure InfluxDB Backend Listener dynamically
-	influxURL := uploadURL // We will override this carefully below
-	if strings.Contains(uploadURL, "/api/results/upload") {
-		influxURL = strings.Replace(uploadURL, "/api/results/upload", "/api/v2/write", 1) + "?db=jmeter"
-	}
-
 	// Construct base command
 	args := []string{
 		"-n", // non-GUI mode
@@ -80,16 +74,6 @@ func Execute(runID string, agentID string, jmxPath string, runMode string, jmete
 
 	// Make the agentID available as a JMeter property
 	args = append(args, fmt.Sprintf("-JagentId=%s", agentID))
-
-	// Inject the influxDB parameters automatically if not provided
-	if _, ok := jmeterParams["influxdbUrl"]; !ok {
-		args = append(args,
-			fmt.Sprintf("-JinfluxdbUrl=%s", influxURL),
-			"-JinfluxdbMetricsSender=org.apache.jmeter.visualizers.backend.influxdb.HttpMetricsSender",
-			fmt.Sprintf("-Japplication=jmeter_%s", agentID),
-			"-JsummaryOnly=false",
-		)
-	}
 
 	// Prioritize `jmeter` from system PATH if available
 	jmeterExec := "jmeter"

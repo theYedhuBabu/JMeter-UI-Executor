@@ -99,6 +99,7 @@ func startKafkaConsumer(metricChan chan KafkaMetric, brokers []string, topic str
 				Latency:      raw.Latency,
 				Success:      raw.Success,
 				AllThreads:   raw.AllThreads,
+				AgentId:      raw.AgentId,
 			}
 
 			metricChan <- metric
@@ -110,51 +111,63 @@ func startMetricAggregator(hub *net.Hub, metricChan chan KafkaMetric) {
 
 	go func() {
 
-		var requests int
-		var errors int
-		var threads int
+		type agentStats struct {
+			Requests int
+			Errors   int
+			Threads  int
+		}
+
+		statsByAgent := make(map[string]agentStats)
 
 		ticker := time.NewTicker(1 * time.Second)
+		defer ticker.Stop()
 
 		for {
 
 			select {
 
 			case m := <-metricChan:
+				agentID := m.AgentId
+				if agentID == "" {
+					agentID = "unknown"
+				}
 
-				requests++
+				stats := statsByAgent[agentID]
+				stats.Requests++
 
 				if !m.Success {
-					errors++
+					stats.Errors++
 				}
 
-				threads = m.AllThreads
+				stats.Threads = m.AllThreads
+				statsByAgent[agentID] = stats
 
 			case <-ticker.C:
+				for agentID, stats := range statsByAgent {
+					payload := struct {
+						Type string `json:"type"`
+						Data struct {
+							Requests int    `json:"requests"`
+							Errors   int    `json:"errors"`
+							Threads  int    `json:"threads"`
+							AgentID  string `json:"agent_id"`
+						} `json:"data"`
+					}{
+						Type: "metric",
+					}
 
-				payload := struct {
-					Type string `json:"type"`
-					Data struct {
-						Requests int `json:"requests"`
-						Errors   int `json:"errors"`
-						Threads  int `json:"threads"`
-					} `json:"data"`
-				}{
-					Type: "metric",
+					payload.Data.Requests = stats.Requests
+					payload.Data.Errors = stats.Errors
+					payload.Data.Threads = stats.Threads
+					payload.Data.AgentID = agentID
+
+					bytes, err := json.Marshal(payload)
+					if err == nil {
+						hub.Broadcast <- bytes
+					}
 				}
 
-				payload.Data.Requests = requests
-				payload.Data.Errors = errors
-				payload.Data.Threads = threads
-
-				bytes, err := json.Marshal(payload)
-				if err == nil {
-					hub.Broadcast <- bytes
-				}
-
-				// reset for next second
-				requests = 0
-				errors = 0
+				clear(statsByAgent)
 			}
 		}
 	}()
