@@ -1,0 +1,26 @@
+{"time":"2026-03-19T11:48:41.495640124+05:30","level":"INFO","msg":"Starting JMeter Central Hub..."}
+{"time":"2026-03-19T11:48:41.496665877+05:30","level":"INFO","msg":"Database connection established","path":"./jmeter_hub.db"}
+{"time":"2026-03-19T11:48:41.496773154+05:30","level":"INFO","msg":"Database tables initialized successfully"}
+[GIN-debug] [WARNING] Creating an Engine instance with the Logger and Recovery middleware already attached.
+
+[GIN-debug] [WARNING] Running in "debug" mode. Switch to "release" mode in production.
+ - using env:	export GIN_MODE=release
+ - using code:	gin.SetMode(gin.ReleaseMode)
+
+[GIN-debug] POST   /api/upload/script        --> jmeter-hub/api.SetupRouter.UploadScriptHandler.func3 (3 handlers)
+[GIN-debug] POST   /api/parse-jmx            --> jmeter-hub/api.ParseJMXHandler (3 handlers)
+[GIN-debug] POST   /api/results/upload/:runId --> jmeter-hub/api.ResultReceiverHandler (3 handlers)
+[GIN-debug] GET    /api/run/active           --> jmeter-hub/api.GetActiveRunHandler (3 handlers)
+[GIN-debug] GET    /api/history              --> jmeter-hub/api.GetHistoryHandler (3 handlers)
+[GIN-debug] GET    /api/agents               --> jmeter-hub/api.SetupRouter.func1 (3 handlers)
+[GIN-debug] GET    /reports/*filepath        --> github.com/gin-gonic/gin.(*RouterGroup).createStaticHandler.func1 (3 handlers)
+[GIN-debug] HEAD   /reports/*filepath        --> github.com/gin-gonic/gin.(*RouterGroup).createStaticHandler.func1 (3 handlers)
+[GIN-debug] GET    /master_workspace/*filepath --> github.com/gin-gonic/gin.(*RouterGroup).createStaticHandler.func1 (3 handlers)
+[GIN-debug] HEAD   /master_workspace/*filepath --> github.com/gin-gonic/gin.(*RouterGroup).createStaticHandler.func1 (3 handlers)
+[GIN-debug] GET    /ws                       --> jmeter-hub/api.SetupRouter.func2 (3 handlers)
+[GIN-debug] GET    /assets/*filepath         --> github.com/gin-gonic/gin.(*RouterGroup).createStaticHandler.func1 (3 handlers)
+[GIN-debug] HEAD   /assets/*filepath         --> github.com/gin-gonic/gin.(*RouterGroup).createStaticHandler.func1 (3 handlers)
+{"time":"2026-03-19T11:48:41.497593982+05:30","level":"INFO","msg":"Hub listening","port":":8080"}
+[GIN-debug] [WARNING] You trusted all proxies, this is NOT safe. We recommend you to set a value.
+Please check https://github.com/gin-gonic/gin/blob/master/docs/doc.md#dont-trust-all-proxies for details.
+[GIN-debug] Listening and serving HTTP on :8080

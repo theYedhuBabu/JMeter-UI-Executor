@@ -3,3 +3,5 @@ apache-jmeter-*/
 *.zip
 *.log
 *.jmx
+*.db-shm
+*.db-wal
