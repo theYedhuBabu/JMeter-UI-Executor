@@ -8,10 +8,16 @@ export interface CommandPayload {
     [key: string]: any;
 }
 
+export interface MetricData {
+    requests: number
+    errors: number
+    threads: number
+    agent_id: string
+}
+
 export interface MetricPayload {
-    type: 'metric';
-    log_line: string;
-    data: string;
+    type: string
+    data: MetricData
 }
 
 export interface LogEntry {

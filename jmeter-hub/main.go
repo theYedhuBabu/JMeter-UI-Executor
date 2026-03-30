@@ -15,6 +15,7 @@ import (
 	"jmeter-hub/api"
 	"jmeter-hub/database"
 	"jmeter-hub/net"
+	"jmeter-hub/services"
 )
 
 //go:embed ui/dist/*
@@ -36,6 +37,13 @@ func main() {
 
 	// 4. Set up Routing (API, WS, Uploads)
 	router := api.SetupRouter(wsHub)
+
+	// Start Kafka metrics pipeline
+	services.StartKafkaMetricsPipeline(
+		wsHub,
+		[]string{"localhost:29092"},
+		"jmeter_metrics",
+	)
 
 	// --- Serve the Embedded React App ---
 	// Extract the "ui/dist" directory from the embedded files
