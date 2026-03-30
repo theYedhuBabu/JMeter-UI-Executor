@@ -35,8 +35,6 @@ func SetupRouter(hub *net.Hub) *gin.Engine {
 		api.POST("/upload/script", UploadScriptHandler(hub))
 		api.POST("/parse-jmx", ParseJMXHandler)
 		api.POST("/results/upload/:runId", ResultReceiverHandler)
-		// api.POST("/v2/write/:runId", InfluxMetricsReceiver(hub))
-		// api.POST("/v2/write", InfluxMetricsReceiver(hub)) // Fallback for backwards compatibility
 		api.GET("/run/active", GetActiveRunHandler)
 		api.GET("/history", GetHistoryHandler)
 		api.GET("/agents", func(c *gin.Context) {

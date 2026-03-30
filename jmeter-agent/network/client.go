@@ -170,10 +170,10 @@ func (c *Client) startTest(cmd *models.CommandMessage) {
 		slog.Info("Injected variable mapped file", "key", key, "path", absFilePath)
 	}
 
-	// Auto-inject the BackendListener if missing
-	slog.Info("Checking and injecting BackendListener if missing", "run_id", cmd.RunID)
+	// Keep the injector call for compatibility, but the script remains the source of truth.
+	slog.Info("Validating script-provided BackendListener configuration", "run_id", cmd.RunID)
 	if injectErr := xmlparser.InjectBackendListener(jmxPath); injectErr != nil {
-		slog.Warn("Failed to inject BackendListener logic, continuing with original script", "run_id", cmd.RunID, "error", injectErr)
+		slog.Warn("BackendListener validation failed, continuing with original script", "run_id", cmd.RunID, "error", injectErr)
 	}
 
 	// Derive the HTTP upload URL from the WebSocket URL, handling both ws:// and wss://
