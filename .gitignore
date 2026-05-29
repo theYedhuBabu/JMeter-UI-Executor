@@ -7,4 +7,4 @@ apache-jmeter-*/
 *.db-wal
 jmeter-agent/jmeter-agent
 jmeter-hub/jmeter-hub
-jmeter_hub.db
+*.db
