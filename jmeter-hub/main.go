@@ -9,6 +9,7 @@ import (
 	"net/http"
 	"os"
 	"path/filepath"
+	stdnet "net"
 
 	"github.com/gin-gonic/gin"
 
@@ -35,8 +36,12 @@ func main() {
 	wsHub := net.NewHub()
 	go wsHub.Run()
 
+	conn, _ := stdnet.Dial("udp", "8.8.8.8:80")
+	lanIP := conn.LocalAddr().(*stdnet.UDPAddr).IP.String()
+	conn.Close()
+	port := ":8080"
 	// 4. Set up Routing (API, WS, Uploads)
-	router := api.SetupRouter(wsHub)
+	router := api.SetupRouter(wsHub, lanIP+port)
 
 	// Start Kafka metrics pipeline
 	services.StartKafkaMetricsPipeline(
@@ -96,7 +101,7 @@ func main() {
 	})
 
 	// 5. Start the Server
-	port := ":8080"
+	
 	slog.Info("Hub listening", "port", port)
 	if err := router.Run(port); err != nil {
 		slog.Error("Server failed", "error", err)
