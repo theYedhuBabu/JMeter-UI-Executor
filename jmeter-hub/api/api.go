@@ -22,7 +22,7 @@ import (
 )
 
 // SetupRouter initializes the gin server and maps all the API endpoints
-func SetupRouter(hub *net.Hub) *gin.Engine {
+func SetupRouter(hub *net.Hub, hostAddr string) *gin.Engine {
 	r := gin.Default()
 
 	// Ensure our workspace directories exist dynamically
@@ -32,7 +32,7 @@ func SetupRouter(hub *net.Hub) *gin.Engine {
 	// API Groups
 	api := r.Group("/api")
 	{
-		api.POST("/upload/script", UploadScriptHandler(hub))
+		api.POST("/upload/script", UploadScriptHandler(hub, hostAddr))
 		api.POST("/parse-jmx", ParseJMXHandler)
 		api.POST("/results/upload/:runId", ResultReceiverHandler)
 		api.GET("/run/active", GetActiveRunHandler)
@@ -64,7 +64,7 @@ func SetupRouter(hub *net.Hub) *gin.Engine {
 // UploadScriptHandler accepts a multipart form upload (a .jmx file and optionally .csv files),
 // parses the configurations to split/share CSVs dynamically, saves them to a local
 // ./master_workspace/ directory, and dispatches start commands over WebSockets to targeted agents.
-func UploadScriptHandler(hub *net.Hub) gin.HandlerFunc {
+func UploadScriptHandler(hub *net.Hub, hostAddr string) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		err := c.Request.ParseMultipartForm(32 << 20) // 32MB max memory
 		if err != nil {
@@ -121,7 +121,7 @@ func UploadScriptHandler(hub *net.Hub) gin.HandlerFunc {
 			c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to save JMX file: " + err.Error()})
 			return
 		}
-		jmxDownloadURL := fmt.Sprintf("http://%s/master_workspace/%s/%s", c.Request.Host, runID, primaryScriptName)
+		jmxDownloadURL := fmt.Sprintf("http://%s/master_workspace/%s/%s", hostAddr, runID, primaryScriptName)
 
 		// 2. Parse the strictly required CSVs from the JMX
 		requiredCSVs, err := parser.ParseRequiredCSVs(dstJmx)
@@ -169,7 +169,7 @@ func UploadScriptHandler(hub *net.Hub) gin.HandlerFunc {
 						c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to save split chunk: " + err.Error()})
 						return
 					}
-					agentFiles[agent][csvName] = fmt.Sprintf("http://%s/master_workspace/%s/%s", c.Request.Host, runID, chunkFileName)
+					agentFiles[agent][csvName] = fmt.Sprintf("http://%s/master_workspace/%s/%s", hostAddr, runID, chunkFileName)
 				}
 
 				// Clean up the temp file
@@ -183,7 +183,7 @@ func UploadScriptHandler(hub *net.Hub) gin.HandlerFunc {
 					return
 				}
 
-				sharedURL := fmt.Sprintf("http://%s/master_workspace/%s/%s", c.Request.Host, runID, csvFile.Filename)
+				sharedURL := fmt.Sprintf("http://%s/master_workspace/%s/%s", hostAddr, runID, csvFile.Filename)
 				for _, agent := range config.Agents {
 					agentFiles[agent][csvName] = sharedURL
 				}

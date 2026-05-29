@@ -5,3 +5,6 @@ apache-jmeter-*/
 *.jmx
 *.db-shm
 *.db-wal
+jmeter-agent/jmeter-agent
+jmeter-hub/jmeter-hub
+jmeter_hub.db
