@@ -4,7 +4,7 @@ import { getAgents, uploadScript, parseJmx, getActiveRun } from '../services/api
 import { useAgentSocket } from '../hooks/useAgentSocket';
 import { LiveTerminal } from './LiveTerminal';
 import { LiveMetrics } from './LiveMetrics';
-import { Settings2 } from 'lucide-react';
+import { Settings2, GitBranch, CheckCircle } from 'lucide-react';
 
 export function TestRunnerInner({ initialRunId }: { initialRunId?: string }) {
     const [agents, setAgents] = useState<string[]>([]);
@@ -23,6 +23,11 @@ export function TestRunnerInner({ initialRunId }: { initialRunId?: string }) {
     const [isParsing, setIsParsing] = useState(false);
     const [activeRunId, setActiveRunId] = useState<string>(initialRunId || '');
     const [executionMode, setExecutionMode] = useState<'single' | 'distributed'>('single');
+
+    const [showGitUrlPopup, setshowGitUrlPopup] = useState(false);
+    const [gitUrlValue, setgitUrlValue] = useState<string>('');
+    const [gitUrlError, setGitUrlError] = useState<string>('');
+
 
     // Determine WebSocket URL dynamically based on environment
     const wsProtocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
@@ -156,6 +161,30 @@ export function TestRunnerInner({ initialRunId }: { initialRunId?: string }) {
         setIsRunning(false);
     };
 
+
+    const isValidGitUrl = (url: string): boolean => {
+        if (!url.trim()) return false;
+        try {
+            const parsed = new URL(url);
+            return ['http:', 'https:'].includes(parsed.protocol);
+        } catch {
+            return false;
+        }
+    };
+    const handleGitSubmit = () => {
+        if (!gitUrlValue.trim()) {
+            setGitUrlError('Please enter a Git repository URL');
+            return;
+        }
+        if (!isValidGitUrl(gitUrlValue)) {
+            setGitUrlError('Please enter a valid Git URL');
+            return;
+        }
+        setGitUrlError('');
+        console.log(gitUrlValue);
+        setshowGitUrlPopup(false);
+    }
+
     return (
         <div className="flex flex-col h-full gap-6">
             <div className="flex items-center justify-between pb-4 border-b border-gray-200">
@@ -166,24 +195,97 @@ export function TestRunnerInner({ initialRunId }: { initialRunId?: string }) {
                 </div>
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 flex-shrink-0">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 flex-shrink-0 lg:items-start">
 
                 {/* Upload Zone */}
                 <div className="lg:col-span-2 bg-white rounded-xl shadow-sm border border-gray-200 p-6 flex flex-col gap-4">
                     <h3 className="font-semibold text-gray-700 flex items-center gap-2">
-                        <Upload className="w-5 h-5 text-blue-500" /> Upload Test Assets
+                        <Upload className="w-5 h-5 text-blue-500" /> Configure New Test
                     </h3>
 
                     <div className="flex flex-col gap-4">
-                        <div
-                            className="border-2 border-dashed border-gray-300 rounded-lg p-6 flex flex-col items-center justify-center hover:bg-gray-50 transition-colors cursor-pointer"
-                            onClick={() => scriptInputRef.current?.click()}
-                        >
-                            <FileText className="w-10 h-10 text-gray-400 mb-2" />
-                            <p className="text-sm font-medium text-gray-700">
-                                {scriptFile ? scriptFile.name : "Click to select a .jmx script"}
-                            </p>
-                            <p className="text-xs text-gray-500 mt-1">Required</p>
+                        <div className='flex flex-col gap-1'>
+                            <label className='text-sm font-medium text-gray-700'>Test Name</label>
+                            <input
+                                type="text"
+                                placeholder='Enter Test Name'
+                                className='w-full border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors'
+                            />
+                        </div>
+                    </div>
+                    <div className="flex flex-col gap-4">
+
+                        <div className="flex flex-row gap-2">
+                            <button
+                                onClick={() => setshowGitUrlPopup(true)}
+
+
+
+                                disabled={isRunning || isParsing}
+                                className="w-full bg-orange-600 hover:bg-orange-700 text-white font-bold py-3 px-4 rounded-lg flex items-center justify-center gap-2 transition-colors disabled:opacity-50 cursor-pointer disabled:cursor-not-allowed">
+                                {isRunning || isParsing ? (
+                                    <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
+                                ) : (
+                                    <GitBranch className="w-5 h-5" />
+                                )}
+                                {isUploading ? "Uploading..." : "Add Git repo"}
+                            </button>
+
+                            {showGitUrlPopup && (
+
+                                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+                                    <div className="bg-white rounded-xl shadow-xl p-6 flex flex-col gap-4 w-full max-w-md">
+                                        <h3 className="font-semibold text-gray-800">Add Git Repository</h3>
+                                        <input
+                                            autoFocus
+                                            value={gitUrlValue}
+                                            onChange={(e) => {
+                                                setgitUrlValue(e.target.value);
+                                                if (gitUrlError) setGitUrlError('');
+                                            }}
+                                            placeholder="https://github.com/..."
+                                            className={`border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 transition-colors ${gitUrlError
+                                                ? 'border-red-400 focus:ring-red-400'
+                                                : 'border-gray-300 focus:ring-blue-500'
+                                                }`}
+                                        />
+                                        {gitUrlError && (
+                                            <p className="text-red-500 text-xs -mt-2">{gitUrlError}</p>
+                                        )}
+                                        <div className="flex gap-2 justify-end">
+                                            <button
+                                                onClick={() => { setshowGitUrlPopup(false); setGitUrlError(''); }}
+                                                className="px-4 py-2 text-sm text-gray-600 hover:text-gray-800"
+                                            >
+                                                Cancel
+                                            </button>
+                                            <button
+                                                onClick={handleGitSubmit}
+                                                className="bg-orange-600 hover:bg-orange-700 text-white text-sm font-semibold px-4 py-2 rounded-lg"
+                                            >
+                                                Add Repo
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            )}
+                            <button
+                                onClick={() => scriptInputRef.current?.click()}
+                                disabled={isRunning || isParsing}
+                                className="w-full bg-cyan-600 hover:bg-cyan-700 text-white font-bold py-3 px-4 rounded-lg flex items-center justify-center gap-2 transition-colors disabled:opacity-50 cursor-pointer disabled:cursor-not-allowed">
+                                {isRunning || isParsing ? (
+                                    <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
+                                ) : (
+                                    <FileText className="w-5 h-5" />
+                                )}
+                                {scriptFile ? (
+                                    <>
+                                        <CheckCircle className="w-4 h-4 text-green-300" />
+                                        {scriptFile.name}
+                                    </>
+                                ) : "Upload Zip"}
+                            </button>
                             <input
                                 type="file"
                                 ref={scriptInputRef}
@@ -191,6 +293,7 @@ export function TestRunnerInner({ initialRunId }: { initialRunId?: string }) {
                                 accept=".jmx"
                                 onChange={handleScriptSelect}
                             />
+
                         </div>
 
                         {isParsing && (
@@ -276,6 +379,7 @@ export function TestRunnerInner({ initialRunId }: { initialRunId?: string }) {
                             </div>
                         )}
                     </div>
+
                 </div>
 
                 {/* Execution Control Panel */}
