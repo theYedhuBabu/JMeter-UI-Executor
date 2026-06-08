@@ -7,4 +7,6 @@ apache-jmeter-*/
 *.db-wal
 jmeter-agent/jmeter-agent
 jmeter-hub/jmeter-hub
+jmeter-hub/jmeter_hub.db
 *.db
+jmeter-hub/request-flow.md

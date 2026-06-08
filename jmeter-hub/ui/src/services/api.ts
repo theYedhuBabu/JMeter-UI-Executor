@@ -9,69 +9,58 @@ export interface TestRun {
     LogPath: string;
 }
 
+async function apiFetch<T>(url:string, options?: RequestInit): Promise<T> {
+
+    const response = await fetch(`${API_BASE_URL}${url}`, options);
+
+    if (!response.ok) {
+        throw new Error(`${response.status}: ${response.statusText}`)
+    }
+    return response.json();
+    
+}
+
 export async function parseJmx(file: File): Promise<string[]> {
     const formData = new FormData();
     formData.append('file', file);
 
-    const response = await fetch(`${API_BASE_URL}/api/parse-jmx`, {
+    const result = await apiFetch<{required_csvs : string[]}>("/api/parse-jmx", {
         method: 'POST',
         body: formData,
     });
-
-    if (!response.ok) {
-        throw new Error(`Failed to parse JMX: ${response.statusText}`);
-    }
-
-    const result = await response.json();
     return result.required_csvs || [];
+}
+
+export async function processFramework() {
+    
 }
 
 export async function uploadScript(file: File, csvFiles: Record<string, File>, configStr: string): Promise<any> {
     const formData = new FormData();
     formData.append('file', file);
 
-    // Append each csv file under its specific variable name key
     Object.entries(csvFiles).forEach(([key, csv]) => {
         formData.append(key, csv);
     });
 
-    // Append the json config
     formData.append('config', configStr);
 
-    const response = await fetch(`${API_BASE_URL}/api/upload/script`, {
+    return apiFetch('/api/upload/script', {
         method: 'POST',
         body: formData,
     });
-
-    if (!response.ok) {
-        throw new Error(`Failed to upload script: ${response.statusText}`);
-    }
-
-    return response.json();
 }
 
 export async function getHistory(): Promise<TestRun[]> {
-    const response = await fetch(`${API_BASE_URL}/api/history`);
-    if (!response.ok) {
-        throw new Error(`Failed to fetch history: ${response.statusText}`);
-    }
-    const result = await response.json();
+    const result = await apiFetch<{ data: TestRun[] }>('/api/history');
     return result.data || [];
 }
 
 export async function getAgents(): Promise<string[]> {
-    const response = await fetch(`${API_BASE_URL}/api/agents`);
-    if (!response.ok) {
-        throw new Error(`Failed to fetch agents: ${response.statusText}`);
-    }
-    const result = await response.json();
+    const result = await apiFetch<{ agents: string[] }>('/api/agents');
     return result.agents || [];
 }
 
 export async function getActiveRun(): Promise<{ active: boolean; runId: string | null }> {
-    const response = await fetch(`${API_BASE_URL}/api/run/active`);
-    if (!response.ok) {
-        throw new Error(`Failed to fetch active run: ${response.statusText}`);
-    }
-    return response.json();
+    return apiFetch('/api/run/active');
 }
