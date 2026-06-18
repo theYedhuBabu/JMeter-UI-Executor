@@ -2,7 +2,6 @@ apache-jmeter-*/
 *.jtl
 *.zip
 *.log
-*.jmx
 *.db-shm
 *.db-wal
 jmeter-agent/jmeter-agent
